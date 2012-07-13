@@ -24,6 +24,11 @@ def main(file_name=None):
         file_name =  fileOpenDlg()[0]
     
     p,l,data_rec = utils.get_data(file_name)
+
+    # For backwards compatibility, check if this variable exists: 
+    if 'eye_moved' in l: 
+        data_rec[np.where(data_rec['eye_moved']==1)]
+    
     neutral = data_rec[np.where(data_rec['neutral'])]
     peripheral = data_rec[np.where(data_rec['neutral']==0)]
     cond_str = ['Neutral', 'Cued']
