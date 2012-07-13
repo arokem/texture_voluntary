@@ -169,65 +169,20 @@ if __name__ == "__main__":
         odd_first = np.random.randn() > 0
 
         # This determines the cue size and location:
-        if neutral_cue:
-            cue1_vertices = cue2_vertices = [[size/2, p.cue_size[1]],
-                                             [-size/2, p.cue_size[1]]] 
-
-            cue1_location1 = cue2_location1 = [0, 0]
-            cue1_location2 = cue2_location2 = [0, -4*p.elem_spacing]
-            cue1 = [visual.ShapeStim(win, 
-                                lineColor='green',
-                                lineWidth=p.line_width,
-                                fillColor=None,
-                                vertices=cue1_vertices,
-                                closeShape=True,
-                                pos=cue1_location1,
-                                interpolate=True,
-                                opacity=1),
-                visual.ShapeStim(win, 
-                                lineColor='green',
-                                lineWidth=p.line_width,
-                                fillColor=None,
-                                vertices=cue1_vertices,
-                                closeShape=True,
-                                pos=cue1_location2,
-                                interpolate=True,
-                                opacity=1)]
-    
-            cue2 = [visual.ShapeStim(win, 
-                                lineColor='green',
-                                lineWidth=p.line_width,
-                                fillColor=None,
-                                vertices=cue2_vertices,
-                                closeShape=True,
-                                pos=cue2_location1,
-                                interpolate=True,
-                                opacity=1),
-                visual.ShapeStim(win, 
-                                lineColor='green',
-                                lineWidth=p.line_width,
-                                fillColor=None,
-                                vertices=cue2_vertices,
-                                closeShape=True,
-                                pos=cue2_location2,
-                                interpolate=True,
-                                opacity=1)]
+        cue1_location1 = cue1_location2 = [0,0]            
+        # For the neutral trials, display a capital N:
+        if neutral_cue: 
+            cuetext = 'N'
+        # Otherwise, the cue provides information about both cue location and direction
         else:
-            cue1_vertices = cue2_vertices = [[p.cue_size[0]/2., p.cue_size[1]],
-                                             [-1 * p.cue_size[0]/2., p.cue_size[1]]]
-
-
-            cue1_location1 = cue1_location2 = [0,0]
-            cue2_location1 = cue2_location2 = [0,0]
-            
             if this_odd < 5:
                 cuetext = "- "+str(5 - this_odd)
             else:
                 cuetext = str(this_odd-5+1)+" -"
             
-            cue1 = [visual.TextStim(win,text=cuetext, pos=cue1_location1),
+        cue1 = [visual.TextStim(win,text=cuetext, pos=cue1_location1),
                                 visual.TextStim(win,text=cuetext,opacity=0)]
-            cue2 = [visual.TextStim(win,text=cuetext, pos=cue1_location1),
+        cue2 = [visual.TextStim(win,text=cuetext, pos=cue1_location1),
                                 visual.TextStim(win,text=cuetext,opacity=0)]
 
         # Record the eccentricity of the odd element and of the foil cue:
@@ -242,9 +197,6 @@ if __name__ == "__main__":
 
         # Loop over for the two intervals:
         for i,cue in enumerate(cues): 
-            if neutral_cue:
-            # Draw in the fixation if neutral cue
-                fixation.draw()
 
             # Draw both parts of this cue:
             for c in cue: c.draw()
@@ -254,8 +206,6 @@ if __name__ == "__main__":
 
             # Wait for the duration of the cue and draw in only the fixation
             core.wait(p.cue_dur)
-            if neutral_cue:
-                fixation.draw()
             win.flip()
 
             if p.demo: wait_for_key()
@@ -272,8 +222,6 @@ if __name__ == "__main__":
             # Jitter spatial location of the elements in the array:
             ea.xys = xys + p.jitter * randn(ea.xys.shape[0],ea.xys.shape[1])
             
-            if neutral_cue:
-                fixation.draw()
             ea.draw()
             # Wait for the isi before flipping in the fixation + ea:
             core.wait(p.cue_to_ea)
