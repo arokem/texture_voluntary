@@ -9,8 +9,8 @@ p = dict(
     full_screen = True,
     screen_number = 1,
     # Sounds:
-    correct_sound = Sound(sound_freq_sweep(2000,2000,.1)),
-    incorrect_sound = Sound(sound_freq_sweep(8000, 200, .1)),
+    correct_sound = Sound(sound_freq_sweep(1000,2500,.1)),
+    incorrect_sound = Sound(sound_freq_sweep(8000, 100, .1)),
     # General:
     n_trials = 150,
     fixation_size = 0.1,
