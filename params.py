@@ -4,13 +4,15 @@ from psychopy.sound import Sound
 from psychopy import visual
 
 p = dict(
+    check_eye_movements=True, #False,
     # Display:
     monitor = 'CRT_NEC_FE992',
     full_screen = True,
     screen_number = 1,
     # Sounds:
-    correct_sound = Sound(sound_freq_sweep(1000,2500,.1)),
-    incorrect_sound = Sound(sound_freq_sweep(8000, 100, .1)),
+    correct_sound = Sound(value='G', secs=0.1, octave=5, sampleRate=44100, bits=16),
+    incorrect_sound = Sound(value='G', secs=0.1, octave=4, sampleRate=44100, bits=16),
+    eye_movement_sound = Sound(sound_freq_sweep(8000, 100, .2)),
     # General:
     n_trials = 150,
     fixation_size = 0.1,

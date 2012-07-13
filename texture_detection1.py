@@ -96,7 +96,7 @@ if __name__ == "__main__":
     f = start_data_file(p.subject)
     p.save(f)
     
-    f = save_data(f,'trial','target_ecc','correct','odd_first','neutral','rt')
+    f = save_data(f,'trial','target_ecc','correct','odd_first','neutral','rt', 'eye_moved')
     size = p.elems_per_row * p.elem_spacing
     pre_x = np.linspace(-size/2., size/2., p.elems_per_row) 
     pre_y = np.linspace(-p.elem_spacing, p.elem_spacing, 3) 
@@ -273,9 +273,24 @@ if __name__ == "__main__":
                         response = True
                         rt = clock.getTime()
 
+        event.clearEvents()  # keep the event buffer from overflowing
+        eye_moved = 0
+        if p.check_eye_movements:
+            eye_response = False
+            while not eye_response: 
+                for key in event.getKeys():
+                    if key == 'space':
+                        eye_moved = 0
+                        eye_response = True
+                    elif key == 'd':
+                        eye_moved = 1
+                        eye_response = True
+            if eye_moved:
+                p.eye_movement_sound.play()
+                        
         core.wait(p.iti)
         event.clearEvents()  # keep the event buffer from overflowing
-        f = save_data(f,trial,odd_ecc,correct,int(odd_first),int(neutral_cue),rt)
+        f = save_data(f,trial,odd_ecc,correct,int(odd_first),int(neutral_cue),rt, eye_moved)
 
     win.close()
     f.close()
