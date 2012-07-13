@@ -285,6 +285,11 @@ if __name__ == "__main__":
                     elif key == 'd':
                         eye_moved = 1
                         eye_response = True
+                    elif key=='q':
+                        f.close()
+                        win.close()
+                        core.quit()
+                        
             if eye_moved:
                 p.eye_movement_sound.play()
                         
