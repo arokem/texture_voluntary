@@ -250,9 +250,9 @@ if __name__ == "__main__":
             core.wait(wait[i])
         
         if odd_first:
-            correct_ans = ['num_1','1']             
+            correct_ans = ['num_2','2']             
         else:
-            correct_ans = ['num_2','2']
+            correct_ans = ['num_8','8']
             
         response = False
         while not response:
@@ -261,7 +261,7 @@ if __name__ == "__main__":
                     f.close()
                     win.close()
                     core.quit()
-                elif key in ['1','2','num_1','num_2']:
+                elif key in ['2','8','num_2','num_8']:
                     if key in correct_ans:
                         p.correct_sound.play()
                         correct = 1
